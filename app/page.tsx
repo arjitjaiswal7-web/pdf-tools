@@ -1,65 +1,129 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import {
+  Image,
+  FileText,
+  Scissors,
+  Combine,
+  Minimize2,
+  Edit,
+  FileSpreadsheet,
+  Presentation,
+} from "lucide-react";
+
+const tools = [
+  { title: "Merge PDF", description: "Combine PDFs in seconds.", icon: Combine, category: "Edit", color: "from-orange-500 to-red-500", href: "/pdf-tools/merge-pdf" },
+  { title: "Split PDF", description: "Extract or divide PDF pages easily.", icon: Scissors, category: "Edit", color: "from-blue-500 to-indigo-500", href: "/pdf-tools/split-pdf" },
+  { title: "Edit PDF", description: "Modify text and images inside PDF.", icon: Edit, category: "Edit", color: "from-purple-500 to-indigo-500", href: "/pdf-tools/edit-pdf" },
+
+  { title: "Compress PDF", description: "Reduce file size without losing quality.", icon: Minimize2, category: "Optimize", color: "from-green-500 to-emerald-500", href: "/pdf-tools/compress-pdf" },
+
+  { title: "JPG to PDF", description: "Convert JPG images into PDFs.", icon: Image, category: "Convert", color: "from-pink-500 to-rose-500", href: "/pdf-tools/jpg-to-pdf" },
+  { title: "PDF to Word", description: "Convert PDFs into Word files.", icon: FileText, category: "Convert", color: "from-indigo-500 to-blue-600", href: "/pdf-tools/pdf-to-word" },
+  { title: "Word to PDF", description: "Convert Word into PDF.", icon: FileText, category: "Convert", color: "from-cyan-500 to-blue-500", href: "/pdf-tools/word-to-pdf" },
+  { title: "PDF to JPG", description: "Export PDF pages as JPG.", icon: Image, category: "Convert", color: "from-yellow-500 to-orange-500", href: "/pdf-tools/pdf-to-jpg" },
+  { title: "PDF to Excel", description: "Convert PDF tables into Excel.", icon: FileSpreadsheet, category: "Convert", color: "from-emerald-500 to-green-600", href: "/pdf-tools/pdf-to-excel" },
+  { title: "PDF to PowerPoint", description: "Convert PDF into slides.", icon: Presentation, category: "Convert", color: "from-red-500 to-pink-500", href: "/pdf-tools/pdf-to-powerpoint" },
+];
+
+export default function PDFToolsPage() {
+  const [activeCategory, setActiveCategory] = useState("All");
+
+  const filteredTools =
+    activeCategory === "All"
+      ? tools
+      : tools.filter((tool) => tool.category === activeCategory);
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+    <div className="relative min-h-screen bg-gradient-to-b from-white via-[#f8fbff] to-[#eef3ff] overflow-hidden">
+
+      {/* Floating Premium Background */}
+      <div className="absolute -top-40 -left-40 w-[600px] h-[600px] bg-blue-200 opacity-20 blur-[120px] rounded-full animate-pulse"></div>
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-indigo-200 opacity-20 blur-[120px] rounded-full animate-pulse"></div>
+
+      {/* HERO */}
+      <section className="relative max-w-6xl mx-auto px-6 pt-20 pb-10 text-center">
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
+          PDF tools,{" "}
+          <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            simplified
+          </span>
+        </h1>
+
+        <p className="mt-6 text-lg text-gray-500 max-w-2xl mx-auto">
+          Everything you need to convert, edit and optimize your PDF documents.
+        </p>
+      </section>
+
+      {/* FILTERS */}
+      <section className="max-w-6xl mx-auto px-6 pb-10">
+        <div className="flex flex-wrap justify-center gap-4">
+          {["All", "Edit", "Optimize", "Convert"].map((category) => (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeCategory === category
+                  ? "bg-blue-600 text-white shadow-lg scale-105"
+                  : "bg-white text-gray-600 border border-gray-200 hover:border-blue-400 hover:text-blue-600"
+              }`}
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+              {category}
+            </button>
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* GRID */}
+      <section className="max-w-6xl mx-auto px-6 pb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {filteredTools.map((tool, index) => {
+            const Icon = tool.icon;
+
+            return (
+              <a
+                key={index}
+                href={tool.href}
+                className="group relative bg-white/95 backdrop-blur-xl rounded-2xl p-8 border border-white/60 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
+              >
+                {/* Top Right Hover Corner */}
+                <div
+                  className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-20 transition-all duration-500`}
+                ></div>
+
+                {/* Icon */}
+                <div
+                  className={`relative w-16 h-16 flex items-center justify-center rounded-2xl bg-gradient-to-br ${tool.color} text-white shadow-md transition-all duration-500 group-hover:scale-110`}
+                >
+                  <Icon size={26} />
+                </div>
+
+                {/* Category */}
+                <div className="relative mt-6 text-xs font-semibold text-gray-400 uppercase">
+                  {tool.category}
+                </div>
+
+                {/* Title */}
+                <h3 className="relative mt-2 text-xl font-semibold text-gray-900 transition-colors duration-300 group-hover:text-blue-600">
+                  {tool.title}
+                </h3>
+
+                {/* Description */}
+                <p className="relative mt-3 text-sm text-gray-500 leading-relaxed">
+                  {tool.description}
+                </p>
+
+                {/* CTA */}
+                <div className="relative mt-5 text-sm font-semibold text-blue-600 opacity-0 group-hover:opacity-100 transition duration-300">
+                  SELECT TOOL ⚡
+                </div>
+              </a>
+            );
+          })}
         </div>
-      </main>
+      </section>
+
     </div>
   );
 }
