@@ -20,7 +20,6 @@ export default function MergePDF() {
 
     try {
       setLoading(true);
-
       const mergedPdf = await PDFDocument.create();
 
       for (const file of files) {
@@ -34,7 +33,7 @@ export default function MergePDF() {
       }
 
       const mergedBytes = await mergedPdf.save();
-      const blob = new Blob([new Uint8Array(mergedBytes)], { type: "application/pdf" });
+      const blob = new Blob([mergedBytes], { type: "application/pdf" });
       const url = URL.createObjectURL(blob);
 
       const a = document.createElement("a");
@@ -50,29 +49,35 @@ export default function MergePDF() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-8 bg-gradient-to-br from-slate-50 to-slate-200">
-      <div className="bg-white shadow-2xl rounded-3xl p-10 max-w-xl w-full text-center">
-        <h1 className="text-3xl font-bold mb-4">Merge PDF</h1>
-        <p className="text-gray-500 mb-6">
-          Select multiple PDFs and merge them into one document.
-        </p>
+    <div style={{ minHeight: "100vh", padding: "40px", textAlign: "center" }}>
+      <h1 style={{ fontSize: "32px", fontWeight: "bold" }}>Merge PDF</h1>
+      <p style={{ marginBottom: "20px" }}>
+        Select multiple PDF files to merge.
+      </p>
 
-        <input
-          type="file"
-          multiple
-          accept="application/pdf"
-          onChange={handleFiles}
-          className="mb-6"
-        />
+      <input
+        type="file"
+        multiple
+        accept="application/pdf"
+        onChange={handleFiles}
+      />
 
-        <button
-          onClick={mergePDFs}
-          disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl transition-all"
-        >
-          {loading ? "Merging..." : "Merge PDFs"}
-        </button>
-      </div>
+      <br /><br />
+
+      <button
+        onClick={mergePDFs}
+        disabled={loading}
+        style={{
+          padding: "10px 20px",
+          background: "#2563eb",
+          color: "white",
+          borderRadius: "8px",
+          border: "none",
+          cursor: "pointer"
+        }}
+      >
+        {loading ? "Merging..." : "Merge PDFs"}
+      </button>
     </div>
   );
 }
