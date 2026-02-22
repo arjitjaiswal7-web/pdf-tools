@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import {
   Image,
   FileText,
@@ -11,8 +10,6 @@ import {
   Edit,
   FileSpreadsheet,
   Presentation,
-  Menu,
-  X,
 } from "lucide-react";
 
 const tools = [
@@ -30,7 +27,6 @@ const tools = [
 
 export default function PDFToolsClient() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const filteredTools =
     activeCategory === "All"
@@ -38,49 +34,7 @@ export default function PDFToolsClient() {
       : tools.filter((tool) => tool.category === activeCategory);
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-white via-[#f8fbff] to-[#eef3ff] overflow-hidden">
-
-      {/* Announcement Bar */}
-      <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm text-center py-2 font-medium">
-        ⚡ Powering over 1,000,000 documents daily
-      </div>
-
-      {/* Header */}
-      <header className="fixed top-[36px] left-0 w-full z-40 bg-white/80 backdrop-blur-xl shadow-md">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="https://thesaasbook.com" className="text-2xl font-bold">
-            the<span className="text-blue-600">SaaS</span>book
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-10 text-sm font-medium text-gray-700">
-            <a href="https://thesaasbook.com">Home</a>
-            <a href="https://thesaasbook.com/categories">Resources</a>
-            <a href="https://thesaasbook.com/contact-us">Contact</a>
-            <a href="https://thesaasbook.com/about-us">About</a>
-          </nav>
-
-          {/* Mobile Toggle */}
-          <button
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white px-6 pb-6 flex flex-col space-y-4 text-gray-700 font-medium">
-            <a href="https://thesaasbook.com">Home</a>
-            <a href="https://thesaasbook.com/categories">Resources</a>
-            <a href="https://thesaasbook.com/contact-us">Contact</a>
-            <a href="https://thesaasbook.com/about-us">About</a>
-          </div>
-        )}
-      </header>
-
-      <div className="h-[110px]" />
+    <div className="relative bg-gradient-to-b from-white via-[#f8fbff] to-[#eef3ff]">
 
       {/* HERO */}
       <section className="max-w-6xl mx-auto px-6 pt-10 pb-14 text-center">
@@ -116,19 +70,24 @@ export default function PDFToolsClient() {
       </section>
 
       {/* Tool Grid */}
-      <section className="max-w-6xl mx-auto px-6 pb-14">
+      <section className="max-w-6xl mx-auto px-6 pb-20">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {filteredTools.map((tool, index) => {
             const Icon = tool.icon;
+
             return (
               <a
                 key={index}
                 href={tool.href}
                 className="group relative bg-white rounded-2xl p-8 shadow-md hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden"
               >
-                <div className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-20 transition duration-500`} />
+                <div
+                  className={`absolute -top-16 -right-16 w-40 h-40 rounded-full bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-20 transition duration-500`}
+                />
 
-                <div className={`w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br ${tool.color} text-white`}>
+                <div
+                  className={`w-14 h-14 flex items-center justify-center rounded-xl bg-gradient-to-br ${tool.color} text-white`}
+                >
                   <Icon size={24} />
                 </div>
 
@@ -136,7 +95,7 @@ export default function PDFToolsClient() {
                   {tool.category}
                 </div>
 
-                <h3 className="mt-2 text-lg font-semibold text-gray-900">
+                <h3 className="mt-2 text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition">
                   {tool.title}
                 </h3>
 
@@ -152,57 +111,6 @@ export default function PDFToolsClient() {
           })}
         </div>
       </section>
-
-      {/* Premium Footer */}
-      <footer className="relative mt-16 bg-gradient-to-b from-[#f8fbff] to-white pt-16 pb-10">
-
-        <div className="absolute -top-10 left-1/2 -translate-x-1/2 w-[500px] h-[120px] bg-blue-300 opacity-20 blur-[100px] rounded-full"></div>
-
-        <div className="relative max-w-6xl mx-auto px-6">
-          <div className="grid md:grid-cols-4 gap-10 text-sm text-gray-600">
-
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                TheSaaSBook Tools
-              </h3>
-              <p className="leading-relaxed">
-                Modern browser-based PDF tools built for speed,
-                security and simplicity.
-              </p>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-4">Tools</h4>
-              <ul className="space-y-3">
-                <li><a href="/pdf-tools/merge-pdf" className="hover:text-blue-600 transition">Merge PDF</a></li>
-                <li><a href="/pdf-tools/compress-pdf" className="hover:text-blue-600 transition">Compress PDF</a></li>
-                <li><a href="/pdf-tools/split-pdf" className="hover:text-blue-600 transition">Split PDF</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-4">Resources</h4>
-              <ul className="space-y-3">
-                <li><a href="https://thesaasbook.com/categories" className="hover:text-blue-600 transition">Blog</a></li>
-                <li><a href="https://thesaasbook.com/about-us" className="hover:text-blue-600 transition">About</a></li>
-                <li><a href="https://thesaasbook.com/contact-us" className="hover:text-blue-600 transition">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 className="font-semibold text-gray-900 mb-4">Legal</h4>
-              <ul>
-                <li><a href="https://thesaasbook.com/privacy-policy/" className="hover:text-blue-600 transition">Privacy Policy</a></li>
-              </ul>
-            </div>
-
-          </div>
-
-          <div className="mt-12 pt-6 border-t border-gray-100 text-center text-xs text-gray-500">
-            © {new Date().getFullYear()} TheSaaSBook Tools. All rights reserved.
-          </div>
-        </div>
-      </footer>
 
     </div>
   );
