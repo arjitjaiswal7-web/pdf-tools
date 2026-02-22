@@ -38,7 +38,7 @@ export default function PDFToolsClient() {
 
       {/* HERO */}
       <section className="max-w-6xl mx-auto px-6 pt-10 pb-14 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold text-gray-900">
+        <h1 className="text-4xl md:text-6xl font-extrabold text-black">
           PDF tools,{" "}
           <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             simplified

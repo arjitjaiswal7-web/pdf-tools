@@ -17,7 +17,7 @@ export default function PDFToolsLayout({
   const showAllTools = pathname !== "/pdf-tools";
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f8fbff]">
+    <div className="flex flex-col min-h-screen bg-white antialiased">
 
       {/* Announcement Bar */}
       <div className="fixed top-0 left-0 w-full z-50 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-sm text-center py-2 font-medium">
