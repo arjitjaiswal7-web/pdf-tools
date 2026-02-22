@@ -25,7 +25,7 @@ export default function PDFToolsLayout({
       </div>
 
       {/* Header */}
-      <header className="fixed top-[36px] left-0 w-full z-40 bg-white/95 backdrop-blur-xl border-b border-gray-100 shadow-sm">
+      <header className="fixed top-[36px] left-0 w-full z-40 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
 
           {/* Logo */}
